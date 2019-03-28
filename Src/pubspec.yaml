@@ -1,0 +1,35 @@
+name: boyo_todo
+description: Boyo Todo makes your todo list management easier.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  built_value:
+  built_collection:
+  flutter_redux:
+  redux:
+  redux_epics:
+  rxdart: ^0.20.0
+
+  cupertino_icons: ^0.1.2
+  cached_network_image: ^0.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  test: ^1.5.1
+  mockito: ^3.0.0
+  build_runner:
+  built_value_generator:
+
+
+flutter:
+
+  uses-material-design: true
