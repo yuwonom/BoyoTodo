@@ -144,10 +144,7 @@ workflows:
             #!/bin/bash
             set -e # fail build if any commands fails
             set -x # debug logging
-            
-            cd ${BITRISE_SOURCE_DIR}/Src
-            flutter packages pub run build_runner build --delete-conflicting-outputs
-            
+
             FILE=${BITRISE_SOURCE_DIR}/Src/lib/globals.g.dart
             >$FILE # clears contents
             echo "bool disconnected = ${DISCONNECTED};" >> ${FILE}
