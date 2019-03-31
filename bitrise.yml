@@ -4,7 +4,7 @@ default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 
 app:
   envs:
-  - PROJECT_NAME: Boyo Todo
+  - PROJECT_NAME: BoyoTodo
   - APP_BUNDLE_IDENTIFIER: au.com.boyoapp.todo
   - SLACK_WEBHOOK: "https://hooks.slack.com/services/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"
   # Flutter Version
