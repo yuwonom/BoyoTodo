@@ -143,7 +143,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -e # fail build if any commands fails
-            #set -x # debug logging
+            set -x # debug logging
             
             cd ${BITRISE_SOURCE_DIR}/Src
             flutter packages pub run build_runner build --delete-conflicting-outputs
@@ -161,7 +161,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -e # fail build if any commands fails
-            #set -x # debug logging
+            set -x # debug logging
             
             cd ${BITRISE_SOURCE_DIR}/Src
             flutter analyze
@@ -172,7 +172,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -e # fail build if any commands fails
-            #set -x # debug logging
+            set -x # debug logging
             
             cd ${BITRISE_SOURCE_DIR}/Src
             flutter format . -l 160 --set-exit-if-changed
@@ -184,7 +184,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -e # fail build if any commands fails
-            #set -x # debug logging
+            set -x # debug logging
             
             FILE=${BITRISE_SOURCE_DIR}/Src/android/app/build.gradle
             sed -i "" -e "s|applicationId.*$|applicationId \"${APP_BUNDLE_IDENTIFIER}\"|g" ${FILE}
@@ -203,7 +203,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -e # fail build if any commands fails
-            #set -x # debug logging
+            set -x # debug logging
             
             FILE=${BITRISE_SOURCE_DIR}/Src/android/key.properties
             sed -i "" -e "s|storePassword.*$|storePassword=${BITRISEIO_ANDROID_KEYSTORE_PASSWORD}|g" ${FILE}
@@ -219,7 +219,7 @@ workflows:
         - content: |-
             #!/bin/bash
             set -e # fail build if any commands fails
-            #set -x # debug logging
+            set -x # debug logging
             
             cd ${BITRISE_SOURCE_DIR}/Src
             flutter build apk --build-name ${SEMANTIC_VERSION} --build-number ${BITRISE_BUILD_NUMBER}
