@@ -26,7 +26,7 @@ ApplicationInformation createApplicationInformation(Apis apis, NavigatorObserver
     routes: routes,
   );
 
-  final middleware = getMiddleware(apis);
+  final middleware = getMiddleware(apis, navigatorKey);
 
   final store = Store<AppState>(
     appStateReducer,

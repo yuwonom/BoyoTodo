@@ -11,19 +11,18 @@ class InitiateLogin {
 }
 
 @immutable
-class LogInSuccessful {
-  const LogInSuccessful(this.user, {this.onSuccessCallback});
+class LoginSuccessful {
+  const LoginSuccessful(this.user);
 
   final UserDto user;
-  final Function onSuccessCallback;
 
   @override
   String toString() => "LoginSuccessful";
 }
 
 @immutable
-class LogInFailed {
-  const LogInFailed({this.exception}) : assert(exception != null);
+class LoginFailed {
+  const LoginFailed(this.exception) : assert(exception != null);
 
   final ActionException exception;
 
@@ -32,9 +31,45 @@ class LogInFailed {
 }
 
 @immutable
-class LogOut {
-  const LogOut();
+class Logout {
+  const Logout();
 
   @override
-  String toString() => "LogOut";
+  String toString() => "Logout";
+}
+
+@immutable
+class SaveUserInfo {
+  const SaveUserInfo(this.user);
+
+  final UserDto user;
+
+  @override
+  String toString() => "SaveUserInfo";
+}
+
+@immutable
+class LoadUserInfo {
+  const LoadUserInfo();
+
+  @override
+  String toString() => "LoadUserInfo";
+}
+
+@immutable
+class LoadUserInfoSuccessful {
+  const LoadUserInfoSuccessful(this.user);
+
+  final UserDto user;
+
+  @override
+  String toString() => "LoadUserInfoSuccessful";
+}
+
+@immutable
+class DeleteUserInfo {
+  const DeleteUserInfo();
+
+  @override
+  String toString() => "DeleteUserInfo";
 }

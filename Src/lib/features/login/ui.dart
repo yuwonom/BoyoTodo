@@ -1,3 +1,4 @@
+import 'package:boyo_todo/features/login/action.dart';
 import 'package:boyo_todo/features/login/viewmodel.dart';
 import 'package:boyo_todo/state.dart';
 import 'package:boyo_todo/themes/theme.dart';
@@ -9,17 +10,18 @@ class Login extends StatelessWidget {
   const Login({Key key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => StoreConnector<AppState, LogInViewModel>(
-      converter: (Store<AppState> store) => LogInViewModel(store.state.login),
-      builder: (BuildContext context, LogInViewModel viewModel) => _buildPage(context, StoreProvider.of(context), viewModel));
+  Widget build(BuildContext context) => StoreConnector<AppState, LoginViewModel>(
+      onInit: (Store<AppState> store) => store.dispatch(LoadUserInfo()),
+      converter: (Store<AppState> store) => LoginViewModel(store.state.login),
+      builder: (BuildContext context, LoginViewModel viewModel) => _buildPage(context, StoreProvider.of(context), viewModel));
 
-  Widget _buildPage(BuildContext context, Store<AppState> store, LogInViewModel viewModel) {
+  Widget _buildPage(BuildContext context, Store<AppState> store, LoginViewModel viewModel) {
     final logo = Container(
       height: 256.0,
       width: 256.0,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/boyo_todo_large.svg"),
+          image: AppAssets.boyoTodoLogo,
         ),
       ),
     );
@@ -34,15 +36,24 @@ class Login extends StatelessWidget {
     final button = MaterialButton(
       shape: AppSize.bezel,
       color: Color(0xFF4267b2),
-      onPressed: (){},
+      onPressed: () {
+        if (viewModel.isBusy) {
+          return;
+        }
+        store.dispatch(InitiateLogin());
+      },
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 16.0),
           child: Row(
           children: <Widget>[
             Container(
-              color: AppColors.lightGray,
               height: 24.0,
               width: 24.0,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AppAssets.facebookIcon,
+                ),
+              ),
             ),
             Expanded(
               child: Center(
@@ -54,13 +65,32 @@ class Login extends StatelessWidget {
       ),
     );
 
+    final loading = CircularProgressIndicator(
+      backgroundColor: AppColors.white,
+      strokeWidth: 3.0,
+    );
+
+    final error = Text(
+      "Oops! Something went wrong.",
+      style: AppTextStyles.caption.copyWith(color: AppColors.red),
+      textAlign: TextAlign.center,
+    );
+
     final body = Expanded(
       flex: 1,
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 48.0), 
+            padding: EdgeInsets.symmetric(horizontal: 64.0), 
             child: button,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 16.0),
+            child: viewModel.isBusy
+            ? loading
+            : viewModel.hasException
+              ? error
+              : Container(),
           ),
         ],
       ),

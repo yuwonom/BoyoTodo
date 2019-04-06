@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:boyo_todo/features/login/dtos.dart';
+import 'package:boyo_todo/features/login/exception.dart';
 import 'package:boyo_todo/utility/disconnected.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:http/http.dart' as http;
 
 abstract class Api {
@@ -9,15 +13,28 @@ abstract class Api {
 }
 
 class Connected extends Api {
-  //static final facebookLogin = FacebookLogin();
+  static final facebookLogin = FacebookLogin();
 
   @override
   Future<UserDto> logIn() async {
-    return UserDto();
+    final result = await facebookLogin.logInWithReadPermissions(['email']);
+   
+    if (result.status == FacebookLoginStatus.cancelledByUser || result.status == FacebookLoginStatus.error) {
+      throw LoginFailedException(result.errorMessage);
+    }
+
+    final token = result.accessToken.token;
+    final graphResponse = await http.get('https://graph.facebook.com/v2.12/me?fields=name,email&access_token=$token');
+    final profile = jsonDecode(graphResponse.body);
+
+    return UserDto((b) => b
+      ..uid = profile["id"]
+      ..name = profile["name"]
+      ..email = profile["email"]);
   }
 
   Future<void> logOut() async {
-    //await facebookLogin.logOut();
+    await facebookLogin.logOut();
   }
 }
 
@@ -38,7 +55,7 @@ class Disconnected extends Api with DisconnectedMixin{
   }
 
   Future<void> logOut() async {
-    // Do nothing
+    await randomDelay();
   }
 
   UserDto generateRandomUser() => UserDto((b) => b

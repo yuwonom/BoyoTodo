@@ -16,6 +16,7 @@ class AppColors {
   static Color get transparent => const Color(0x00000000);
   static Color get black => const Color(0xFF161616);
   static Color get white => const Color(0xFFFFFFFF);
+  static Color get red => const Color(0xFFC0392B);
   static Color get borders => const Color(0xFFE9E9E9);
   static Color get lightGray => const Color(0xFFDADADA);
   static Color get darkGray => const Color(0xFF6E6E6E);
@@ -35,4 +36,9 @@ class AppTextStyles {
 class AppSize {
   static get bezel => RoundedRectangleBorder(borderRadius: bezelGeom);
   static get bezelGeom => BorderRadius.circular(3.0);
+}
+
+class AppAssets {
+  static get boyoTodoLogo => AssetImage("assets/images/boyo_todo_logo.png");
+  static get facebookIcon => AssetImage("assets/images/facebook_icon.png");
 }
