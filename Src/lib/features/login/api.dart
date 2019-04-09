@@ -10,6 +10,8 @@ abstract class Api {
   Future<UserDto> logIn();
 
   Future<void> logOut();
+
+  Future<void> validateUser(UserDto user);
 }
 
 class Connected extends Api {
@@ -36,6 +38,10 @@ class Connected extends Api {
   Future<void> logOut() async {
     await facebookLogin.logOut();
   }
+
+  Future<void> validateUser(UserDto user) async {
+    // TODO: hook endpoint
+  }
 }
 
 class Disconnected extends Api with DisconnectedMixin{
@@ -55,6 +61,10 @@ class Disconnected extends Api with DisconnectedMixin{
   }
 
   Future<void> logOut() async {
+    await randomDelay();
+  }
+
+  Future<void> validateUser(UserDto user) async {
     await randomDelay();
   }
 

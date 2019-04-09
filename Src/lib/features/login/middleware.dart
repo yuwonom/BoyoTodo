@@ -35,6 +35,7 @@ class ApiIntegration {
     Future<void> _initiateLogin(Store<AppState> store, InitiateLogin action) async {
       try {
         final user = await api.logIn();
+        await api.validateUser(user);
         store.dispatch(LoginSuccessful(user));
       } on Exception catch (exception) {
         store.dispatch(LoginFailed(ActionException(exception, action)));
