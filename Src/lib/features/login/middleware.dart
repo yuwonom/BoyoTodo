@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:boyo_todo/features/login/action.dart';
 import 'package:boyo_todo/features/login/dtos.dart';
 import 'package:boyo_todo/features/login/ui.dart';
-import 'package:boyo_todo/features/notebook/ui.dart';
+import 'package:boyo_todo/features/navigation/ui.dart';
 import 'package:boyo_todo/state.dart';
 import 'package:boyo_todo/utility/action_exception.dart';
 import 'package:boyo_todo/utility/serialization.dart';
@@ -94,7 +94,7 @@ class Routing {
     if (user == null) {
       return _NextPageInfo(page: Login(), replaceRoot: true);
     } else {
-      return _NextPageInfo(page: Notebook(), replaceRoot: true);
+      return _NextPageInfo(page: Navigation(), replaceRoot: true);
     }
   }
 }

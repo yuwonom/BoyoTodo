@@ -42,14 +42,6 @@ class Notebook extends StatelessWidget {
       ),
     );
 
-    return Theme(
-      data: AppTheme.main,
-      child: Scaffold(
-        backgroundColor: AppColors.black,
-        body: Container(
-          child: structure,
-        ),
-      ),
-    );
+    return structure;
   }
 }

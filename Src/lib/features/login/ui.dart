@@ -16,18 +16,21 @@ class Login extends StatelessWidget {
       builder: (BuildContext context, LoginViewModel viewModel) => _buildPage(context, StoreProvider.of(context), viewModel));
 
   Widget _buildPage(BuildContext context, Store<AppState> store, LoginViewModel viewModel) {
-    final logo = Container(
-      height: 256.0,
-      width: 256.0,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AppAssets.boyoTodoLogo,
-        ),
+    final logo = Padding(
+      padding: EdgeInsets.symmetric(horizontal: 48.0),
+      child: Container(
+        width: 256,
+        height: 256,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AppAssets.boyoTodoLogo,
+          ),
+        )
       ),
     );
 
     final header = Expanded(
-      flex: 3,
+      flex: 2,
       child: Center(
         child: logo,
       ),
@@ -56,8 +59,16 @@ class Login extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: Center(
-                child: Text("Login with Facebook", style: AppTextStyles.button.copyWith(color: AppColors.white)),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                child: Center(
+                  child: Text(
+                    "Login with Facebook",
+                    style: AppTextStyles.button.copyWith(color: AppColors.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ),
             ),
           ],
@@ -81,7 +92,7 @@ class Login extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 64.0), 
+            padding: EdgeInsets.symmetric(horizontal: 48.0), 
             child: button,
           ),
           Padding(
