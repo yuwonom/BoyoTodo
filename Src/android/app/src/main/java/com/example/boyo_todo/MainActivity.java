@@ -1,4 +1,4 @@
-package com.example.boyo_todo;
+package au.com.boyoapp.todo;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
