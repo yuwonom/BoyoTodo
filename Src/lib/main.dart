@@ -9,7 +9,7 @@ void main() {
     DeviceOrientation.portraitDown,
   ]);
   
-  final apis = globals.Apis(getLoginApi());
+  final apis = globals.Apis(getLoginApi(), getNotebookApi());
   final navigatorObserver = CompositeNavigatorObserver();
 
   final applicationInformation = createApplicationInformation(apis, navigatorObserver);

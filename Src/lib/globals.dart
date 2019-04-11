@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
 import 'package:boyo_todo/features/login/api.dart' as login;
+import 'package:boyo_todo/features/notebook/api.dart' as notebook;
 
 export 'package:boyo_todo/globals.g.dart';
 
@@ -12,8 +13,9 @@ ApplicationInformation applicationInformation;
 /// Encapsulates APIs from all features.
 class Apis {
   final login.Api loginApi;
+  final notebook.Api notebookApi;
 
-  const Apis(this.loginApi);
+  const Apis(this.loginApi, this.notebookApi);
 }
 
 /// Encapsulates all "global" pieces of state for an application run.

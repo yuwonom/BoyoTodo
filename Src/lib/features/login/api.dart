@@ -69,9 +69,9 @@ class Disconnected extends Api with DisconnectedMixin{
   }
 
   UserDto generateRandomUser() => UserDto((b) => b
-    ..uid = "Lady Margery"
-    ..name = "Lady Margery"
-    ..email = "whatever");
+    ..uid = "Boyo"
+    ..name = "Boyo"
+    ..email = "boyo@gmail.com");
 
   @override
   bool get includeRandomErrors => _includeRandomErrors;

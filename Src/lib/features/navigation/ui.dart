@@ -51,24 +51,26 @@ class NavigationState extends State<Navigation> {
       ),
     );
 
+    final children = <Widget>[
+      hi,
+      ListTile(
+        title: Text("Notebooks", style: AppTextStyles.header2.copyWith(color: AppColors.white, fontWeight: FontWeight.w300)),
+        onTap: () {
+          setState(() => _activeBody = Notebook());
+          Navigator.of(context).pop();
+        },
+      ),
+      ListTile(
+        title: Text("Log out", style: AppTextStyles.header2.copyWith(color: AppColors.white, fontWeight: FontWeight.w300)),
+        onTap: () => store.dispatch(Logout()),
+      ),
+    ];
+
     final drawer = Drawer(
       child: Material(
         color: AppColors.black,
         child: ListView(
-          children: <Widget>[
-            hi,
-            ListTile(
-              title: Text("Notebooks", style: AppTextStyles.header2.copyWith(color: AppColors.white, fontWeight: FontWeight.w300)),
-              onTap: () {
-                setState(() => _activeBody = Notebook());
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              title: Text("Log out", style: AppTextStyles.header2.copyWith(color: AppColors.white, fontWeight: FontWeight.w300)),
-              onTap: () => store.dispatch(Logout()),
-            ),
-          ],
+          children: children,
         ),
       ),
     );
@@ -82,7 +84,7 @@ class NavigationState extends State<Navigation> {
           backgroundColor: AppColors.black,
           iconTheme: IconThemeData(color: AppColors.white),
         ),
-        backgroundColor: AppColors.black,
+        backgroundColor: AppColors.grayBackground,
         drawer: drawer,
         body: _activeBody,
       ),

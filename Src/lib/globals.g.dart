@@ -5,7 +5,7 @@
 ///
 
 /// Whether to execute in disconnected more or not.
-bool disconnected = false;
+bool disconnected = true;
 
 /// If [disconnected] is `true`, determines whether to include random, fake delays.
 bool disconnectedDelays = true;

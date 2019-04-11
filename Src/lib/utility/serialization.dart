@@ -1,7 +1,11 @@
 import 'dart:convert' as convert;
 
 import 'package:boyo_todo/features/login/dtos.dart';
+import 'package:boyo_todo/features/notebook/dtos.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
+import 'package:built_value/standard_json_plugin.dart';
 
 part 'serialization.g.dart';
 
@@ -11,7 +15,12 @@ part 'serialization.g.dart';
 
 // Support for BuiltList<$X> needs to be added explicitly because there are no
 // BuiltList<$X> instances anywhere in the DTOs, but we need it for API endpoints.
-final Serializers serializers = (_$serializers.toBuilder()).build();
+final Serializers serializers = (_$serializers.toBuilder()
+      ..addBuilderFactory(const FullType(BuiltList, const [const FullType(ItemListDto)]), () => ListBuilder<ItemListDto>())
+      ..addBuilderFactory(const FullType(BuiltList, const [const FullType(ItemDto)]), () => ListBuilder<ItemDto>())
+      ..add(Iso8601DateTimeSerializer())
+      ..addPlugin(StandardJsonPlugin()))
+    .build();
 
 /// A mixin that provides JSON (de)serialization support.
 abstract class SerializationMixin {

@@ -8,6 +8,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 import 'package:boyo_todo/features/login/api.dart' as login;
+import 'package:boyo_todo/features/notebook/api.dart' as notebook;
 import 'package:boyo_todo/globals.dart' as globals;
 
 ApplicationInformation createApplicationInformation(Apis apis, NavigatorObserver navigatorObserver) {
@@ -44,6 +45,9 @@ ApplicationInformation createApplicationInformation(Apis apis, NavigatorObserver
 
 login.Api _loginApi;
 login.Api getLoginApi() => _loginApi ??= globals.disconnected ? login.Disconnected() : login.Connected();
+
+notebook.Api _notebookApi;
+notebook.Api getNotebookApi() => _notebookApi ??= globals.disconnected ? notebook.Disconnected() : notebook.Connected();
 
 class CompositeNavigatorObserver extends NavigatorObserver {
   final List<NavigatorObserver> _observers;
