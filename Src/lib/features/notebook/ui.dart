@@ -1,3 +1,4 @@
+import 'package:boyo_todo/features/navigation/ui.dart';
 import 'package:boyo_todo/features/notebook/action.dart';
 import 'package:boyo_todo/features/notebook/dtos.dart';
 import 'package:boyo_todo/features/notebook/viewmodel.dart';
@@ -94,8 +95,39 @@ class Notebook extends StatelessWidget {
       shape: BeveledRectangleBorder(),
       elevation: 1.0,
       highlightElevation: 1.0,
-      onPressed: (){},
+      onPressed: () {
+        store.dispatch(SelectNotebook(notebook));
+        Navigation.push(context, ItemList());
+      },
       child: container,
     );
+  }
+}
+
+class ItemList extends StatelessWidget {
+  const ItemList({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => StoreConnector<AppState, NotebookViewModel>(
+      onInit: (Store<AppState> store) => store.dispatch(GetNotebooks()),
+      converter: (Store<AppState> store) => NotebookViewModel(store.state.notebook),
+      builder: (BuildContext context, NotebookViewModel viewModel) => _buildPage(context, StoreProvider.of(context), viewModel));
+
+  Widget _buildPage(BuildContext context, Store<AppState> store, NotebookViewModel viewModel) {
+    List<Widget> itemLists = [];
+    viewModel.itemLists.forEach((itemList) {
+      final itemListCell = _createItemListCell(context, store, itemList);
+      itemLists.add(itemListCell);
+    });
+
+    final page = ListView(
+      children: itemLists,
+    );
+
+    return page;
+  }
+
+  Widget _createItemListCell(BuildContext context, Store<AppState> store, ItemListDto itemList) {
+    return Container();
   }
 }

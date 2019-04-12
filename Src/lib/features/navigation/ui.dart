@@ -12,6 +12,11 @@ class Navigation extends StatefulWidget {
 
   @override
   NavigationState createState() => NavigationState();
+
+  static void push(BuildContext context, Widget page) =>
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => page));
+  
+  static void pop(BuildContext context) => Navigator.of(context).pop();
 }
 
 class NavigationState extends State<Navigation> {
@@ -57,7 +62,7 @@ class NavigationState extends State<Navigation> {
         title: Text("Notebooks", style: AppTextStyles.header2.copyWith(color: AppColors.white, fontWeight: FontWeight.w300)),
         onTap: () {
           setState(() => _activeBody = Notebook());
-          Navigator.of(context).pop();
+          Navigation.pop(context);
         },
       ),
       ListTile(

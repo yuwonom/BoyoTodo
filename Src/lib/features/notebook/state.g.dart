@@ -25,12 +25,22 @@ class _$NotebookStateSerializer implements StructuredSerializer<NotebookState> {
       serializers.serialize(object.notebooks,
           specifiedType:
               const FullType(List, const [const FullType(NotebookDto)])),
+      'itemLists',
+      serializers.serialize(object.itemLists,
+          specifiedType:
+              const FullType(List, const [const FullType(ItemListDto)])),
     ];
     if (object.selectedNotebook != null) {
       result
         ..add('selectedNotebook')
         ..add(serializers.serialize(object.selectedNotebook,
             specifiedType: const FullType(NotebookDto)));
+    }
+    if (object.selectedItemList != null) {
+      result
+        ..add('selectedItemList')
+        ..add(serializers.serialize(object.selectedItemList,
+            specifiedType: const FullType(ItemListDto)));
     }
     if (object.exception != null) {
       result
@@ -67,6 +77,16 @@ class _$NotebookStateSerializer implements StructuredSerializer<NotebookState> {
           result.selectedNotebook.replace(serializers.deserialize(value,
               specifiedType: const FullType(NotebookDto)) as NotebookDto);
           break;
+        case 'itemLists':
+          result.itemLists = serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(List, const [const FullType(ItemListDto)]))
+              as List<ItemListDto>;
+          break;
+        case 'selectedItemList':
+          result.selectedItemList.replace(serializers.deserialize(value,
+              specifiedType: const FullType(ItemListDto)) as ItemListDto);
+          break;
         case 'exception':
           result.exception = serializers.deserialize(value,
                   specifiedType: const FullType(ActionException))
@@ -87,19 +107,31 @@ class _$NotebookState extends NotebookState {
   @override
   final NotebookDto selectedNotebook;
   @override
+  final List<ItemListDto> itemLists;
+  @override
+  final ItemListDto selectedItemList;
+  @override
   final ActionException exception;
 
   factory _$NotebookState([void updates(NotebookStateBuilder b)]) =>
       (new NotebookStateBuilder()..update(updates)).build();
 
   _$NotebookState._(
-      {this.isBusy, this.notebooks, this.selectedNotebook, this.exception})
+      {this.isBusy,
+      this.notebooks,
+      this.selectedNotebook,
+      this.itemLists,
+      this.selectedItemList,
+      this.exception})
       : super._() {
     if (isBusy == null) {
       throw new BuiltValueNullFieldError('NotebookState', 'isBusy');
     }
     if (notebooks == null) {
       throw new BuiltValueNullFieldError('NotebookState', 'notebooks');
+    }
+    if (itemLists == null) {
+      throw new BuiltValueNullFieldError('NotebookState', 'itemLists');
     }
   }
 
@@ -117,14 +149,20 @@ class _$NotebookState extends NotebookState {
         isBusy == other.isBusy &&
         notebooks == other.notebooks &&
         selectedNotebook == other.selectedNotebook &&
+        itemLists == other.itemLists &&
+        selectedItemList == other.selectedItemList &&
         exception == other.exception;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, isBusy.hashCode), notebooks.hashCode),
-            selectedNotebook.hashCode),
+        $jc(
+            $jc(
+                $jc($jc($jc(0, isBusy.hashCode), notebooks.hashCode),
+                    selectedNotebook.hashCode),
+                itemLists.hashCode),
+            selectedItemList.hashCode),
         exception.hashCode));
   }
 
@@ -134,6 +172,8 @@ class _$NotebookState extends NotebookState {
           ..add('isBusy', isBusy)
           ..add('notebooks', notebooks)
           ..add('selectedNotebook', selectedNotebook)
+          ..add('itemLists', itemLists)
+          ..add('selectedItemList', selectedItemList)
           ..add('exception', exception))
         .toString();
   }
@@ -157,6 +197,16 @@ class NotebookStateBuilder
   set selectedNotebook(NotebookDtoBuilder selectedNotebook) =>
       _$this._selectedNotebook = selectedNotebook;
 
+  List<ItemListDto> _itemLists;
+  List<ItemListDto> get itemLists => _$this._itemLists;
+  set itemLists(List<ItemListDto> itemLists) => _$this._itemLists = itemLists;
+
+  ItemListDtoBuilder _selectedItemList;
+  ItemListDtoBuilder get selectedItemList =>
+      _$this._selectedItemList ??= new ItemListDtoBuilder();
+  set selectedItemList(ItemListDtoBuilder selectedItemList) =>
+      _$this._selectedItemList = selectedItemList;
+
   ActionException _exception;
   ActionException get exception => _$this._exception;
   set exception(ActionException exception) => _$this._exception = exception;
@@ -168,6 +218,8 @@ class NotebookStateBuilder
       _isBusy = _$v.isBusy;
       _notebooks = _$v.notebooks;
       _selectedNotebook = _$v.selectedNotebook?.toBuilder();
+      _itemLists = _$v.itemLists;
+      _selectedItemList = _$v.selectedItemList?.toBuilder();
       _exception = _$v.exception;
       _$v = null;
     }
@@ -196,12 +248,17 @@ class NotebookStateBuilder
               isBusy: isBusy,
               notebooks: notebooks,
               selectedNotebook: _selectedNotebook?.build(),
+              itemLists: itemLists,
+              selectedItemList: _selectedItemList?.build(),
               exception: exception);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'selectedNotebook';
         _selectedNotebook?.build();
+
+        _$failedField = 'selectedItemList';
+        _selectedItemList?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'NotebookState', _$failedField, e.toString());

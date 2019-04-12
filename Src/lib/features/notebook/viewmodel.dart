@@ -13,4 +13,6 @@ class NotebookViewModel {
   NotebookDto get selectedNotebook => _state.selectedNotebook;
 
   List<NotebookDto> get notebooks => _state.notebooks;
+
+  List<ItemListDto> get itemLists => _state.itemLists;
 }

@@ -29,3 +29,21 @@ class GetNotebooksFailed {
   @override
   String toString() => "GetNotebooksFailed";
 }
+
+@immutable
+class SelectNotebook {
+  const SelectNotebook(this.notebook) : assert(notebook != null);
+
+  final NotebookDto notebook;
+
+  @override
+  String toString() => "SelectNotebook";
+}
+
+@immutable
+class DeselectNotebook {
+  const DeselectNotebook();
+
+  @override
+  String toString() => "DeselectNotebook";
+}

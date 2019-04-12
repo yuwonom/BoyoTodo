@@ -10,6 +10,7 @@ abstract class NotebookState implements Built<NotebookState, NotebookStateBuilde
   factory NotebookState.initial() => _$NotebookState._(
     isBusy: false,
     notebooks: List(0),
+    itemLists: List(0),
   );
   NotebookState._();
 
@@ -18,6 +19,11 @@ abstract class NotebookState implements Built<NotebookState, NotebookStateBuilde
   List<NotebookDto> get notebooks;
   @nullable
   NotebookDto get selectedNotebook;
+
+  List<ItemListDto> get itemLists;
+  @nullable
+  ItemListDto get selectedItemList;
+
   @nullable
   ActionException get exception;
 
